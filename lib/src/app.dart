@@ -11,8 +11,9 @@ class App extends StatelessWidget {
     
   Widget build(context) {
     final bloc = PnrBlockProvider.of(context);
-    // bloc.getMovies();
-    bloc.getMoviesApi();
+    bloc.getMovies();
+    bloc.getMoviesFirebase();
+    // bloc.getMoviesApi();
     // List<MoviesDetail> ans = repository.getMovies();
     return Scaffold(
         appBar: AppBar(
@@ -38,14 +39,17 @@ class App extends StatelessWidget {
         body : StreamBuilder(
            stream: bloc.movies,
            builder: (context,AsyncSnapshot<List<MoviesDetail>> snapshot){
-            //  print('vdhvdvs =========================${snapshot.data.length}');
+            //  print('vdhvdvs =========================${snapshot.data.length}=========== ');
              if(!snapshot.hasData){
-               return Center(child: CircularProgressIndicator(),);
+               return Center(
+                 child: CircularProgressIndicator(),
+                 );
              }
              return ListView.builder(
                padding: const EdgeInsets.all(10.0),
                itemCount: snapshot.data.length,
                itemBuilder: (context,index){
+                 print('==============================$index=========${snapshot.data[index].title}');
                   return CustomListItemTwo(
                     thumbnail: Container(
                       decoration: const BoxDecoration(color: Colors.pink),
@@ -60,7 +64,6 @@ class App extends StatelessWidget {
              );
            },
          ),
-
 
 
   //        ListView(

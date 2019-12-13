@@ -8,15 +8,22 @@ class PnrBloc{
 
    Observable<List<MoviesDetail>> get movies => _moviesOutput.stream;
 
-  //  Future<void> getMovies() async {
-  //    final ans=  _repository.getMovies();
-  //    print('================================${ans.length}');
-  //    _moviesOutput.sink.add(ans);
-  //  }
+   Future<void> getMovies() async {
+     final ans=  _repository.getMovies();
+     print('================================${ans.length}');
+     _moviesOutput.sink.add(ans);
+   }
 
    Future<void> getMoviesApi() async{
      final ans = await _repository.getMoviesApi();
       _moviesOutput.sink.add(ans);
+   }
+
+   Future<void> getMoviesFirebase() async{
+     print('in getMoviesFirebase=======================');
+     final ans = await _repository.getMoviesFirebase();
+     print('end=========================end');
+      // _moviesOutput.sink.add(ans);
    }
 
 
