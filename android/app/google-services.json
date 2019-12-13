@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "815521892155",
+    "firebase_url": "https://entertainment-902bd.firebaseio.com",
+    "project_id": "entertainment-902bd",
+    "storage_bucket": "entertainment-902bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815521892155:android:3ad505bd10fca234a9191e",
+        "android_client_info": {
+          "package_name": "com.example.entsys"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "815521892155-unoubc059bajr1enr3memeacujgb380s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.entsys",
+            "certificate_hash": "c7ac0c8cef21d0cc9bf5eea9b2bc482d1485c917"
+          }
+        },
+        {
+          "client_id": "815521892155-r6hbmb5qq3n4v4k4h0kc1d31ijvr095r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwxb0LqB862H5ipAIEsrAHxatFUlIn-7E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "815521892155-r6hbmb5qq3n4v4k4h0kc1d31ijvr095r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
