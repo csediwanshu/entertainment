@@ -1,14 +1,13 @@
 import 'package:entsys/src/blocs/pnr_bloc_provider.dart';
-import 'package:entsys/src/models/movies.dart';
-import 'package:entsys/src/ui/video_player.dart';
+import 'package:entsys/src/models/songs.dart';
+import 'package:entsys/src/ui/song_player.dart';
 import 'package:entsys/src/widgets/article_description.dart';
 import 'package:flutter/material.dart';
 
-
-class Video extends StatelessWidget {
+class Song extends StatelessWidget {
   Widget build(context) {
     final bloc = PnrBlockProvider.of(context);
-    bloc.getMoviesFirebase();
+    bloc.getSongsFirebase();
 
     return Scaffold(
       appBar: AppBar(
@@ -16,8 +15,8 @@ class Video extends StatelessWidget {
         title: Text('Infy Login'),
       ),
       body: StreamBuilder(
-        stream: bloc.movies,
-        builder: (context, AsyncSnapshot<List<MoviesDetail>> snapshot) {
+        stream: bloc.songs,
+        builder: (context, AsyncSnapshot<List<SongsDetail>> snapshot) {
           //  print('vdhvdvs =========================${snapshot.data.length}=========== ');
           if (!snapshot.hasData) {
             return Center(
@@ -28,7 +27,7 @@ class Video extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             itemCount: snapshot.data.length,
             itemBuilder: (context, index) {
-              print('==============================$index=========${snapshot.data[index].title}');
+              print('==============================$index=========${snapshot.data[index].name}');
               return CustomListItemTwo(
                 thumbnail: Container(
                   decoration: const BoxDecoration(color: Colors.pink),
@@ -37,16 +36,16 @@ class Video extends StatelessWidget {
                       print('sbhjdvbjbdhd');
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context){
-                          return VideoExample(url:snapshot.data[index].url);
+                          return SongExample(url: snapshot.data[index].url);
                         }));
                     },
                   ),
                 ),
-                title: snapshot.data[index].title,
-                subtitle: snapshot.data[index].plot,
-                author: snapshot.data[index].director,
-                publishDate: snapshot.data[index].released,
-                readDuration: snapshot.data[index].rated,
+                title: snapshot.data[index].name,
+                subtitle: snapshot.data[index].genre,
+                author: snapshot.data[index].writer,
+                publishDate: snapshot.data[index].releasedate,
+                readDuration: snapshot.data[index].rating,
               );
             },
           );

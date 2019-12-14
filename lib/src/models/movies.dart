@@ -13,6 +13,9 @@ class MoviesDetail {
   final String country;
   final String awards;
   final String poster;
+  final String url;
+
+  MoviesDetail({this.title, this.year, this.rated, this.released, this.runtime, this.genre, this.director, this.writer, this.actors, this.plot, this.language, this.country, this.awards, this.poster,this.url});
 
   MoviesDetail.fromJson(Map<String, dynamic> parsedJson)
       : title = parsedJson['title'],
@@ -28,7 +31,8 @@ class MoviesDetail {
         language = parsedJson['language'],
         country = parsedJson['country'],
         awards = parsedJson['awards'],
-        poster = parsedJson['poster'];
+        poster = parsedJson['poster'],
+        url = parsedJson['url'];
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -46,6 +50,7 @@ class MoviesDetail {
       "country": country,
       "awards": awards,
       "poster": poster,
-    };
+      "url" : url,
+    }; 
   }
 }

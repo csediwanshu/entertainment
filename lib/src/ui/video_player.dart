@@ -1,70 +1,60 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoExample extends StatefulWidget {
+  final String url;
+  VideoExample({Key key, this.url}) : super(key: key);
   @override
-  VideoState createState() => VideoState();
+  _VideoAppState createState() => _VideoAppState();
 }
 
-class VideoState extends State<VideoExample> {
-  VideoPlayerController playerController;
-  VoidCallback listener;
+class _VideoAppState extends State<VideoExample> {
+  VideoPlayerController _controller;
 
   @override
   void initState() {
     super.initState();
-    listener = () {
-      setState(() {});
-    };
-  }
-
-  void createVideo() {
-    if (playerController == null) {
-      playerController = VideoPlayerController.network(
-        "https://console.firebase.google.com/u/0/project/entertainment-902bd/storage/entertainment-902bd.appspot.com/files")        ..addListener(listener)
-        ..setVolume(1.0)
-        ..initialize()
-        ..play();
-    } else {
-      if (playerController.value.isPlaying) {
-        playerController.pause();
-      } else {
-        playerController.initialize();
-        playerController.play();
-      }
-    }
-  }
-
-  @override
-  void deactivate() {
-    playerController.setVolume(0.0);
-    playerController.removeListener(listener);
-    super.deactivate();
+    _controller = VideoPlayerController.network('${widget.url}')
+      ..initialize().then((_) {
+        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+        setState(() {});
+      });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
       appBar: AppBar(
-        title: Text('Video Example'),
+        backgroundColor: Colors.orange,
+        title: Text('Infy Player'),
       ),
-      body: Center(
-          child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: Container(
-                child: (playerController != null
-                    ? VideoPlayer(
-                        playerController,
-                      )
-                    : Container()),
-              ))),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          createVideo();
-          playerController.play();
-        },
-        child: Icon(Icons.play_arrow),
-      ),
-    );
+        body: Center(
+          child: _controller.value.initialized
+              ? AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: VideoPlayer(_controller),
+                )
+              : Container(),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              _controller.value.isPlaying
+                  ? _controller.pause()
+                  : _controller.play();
+            });
+          },
+          child: Icon(
+            _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+          ),
+        ),
+      );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
   }
 }
